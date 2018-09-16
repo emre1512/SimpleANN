@@ -98,7 +98,7 @@ public class NeuralNetwork {
     
     protected void backPropagation() {
     	
-    	// BP for output layer weights
+    	// BP for output layer weights and biases
         for (Neuron nO : outputLayer) {
             float derivativeOfError = errorFunction.derivative(nO.getActivationOutput(), nO.desiredOutput);
             //nO.derivativeOfError = derivativeOfError;
@@ -111,12 +111,15 @@ public class NeuralNetwork {
             for (Neuron nH : hiddenLayer) {
                 int i = hiddenLayer.indexOf(nH);
                 //nH.calculateDelta(lambda, nO.getDelta() * nO.getWeight(i));
-                float diff = nu * nO.getDelta() * nH.getActivationOutput();
+                float weightDiff = nu * nO.getDelta() * nH.getActivationOutput();
+                float biasDiff = nu * nO.getDelta();
                 //nO.setWeight(i, nO.getWeight(i) - diff);
-                nO.setUpdatedWeight(i, nO.getWeight(i) - diff);
+                nO.setUpdatedWeight(i, nO.getWeight(i) - weightDiff);
+                nO.setBias(nO.getBias() - biasDiff);
             }
         }
-         
+        
+        
         // BP for hidden layer weights
         for (Neuron nH : hiddenLayer) {
             int i = hiddenLayer.indexOf(nH);       		
@@ -132,9 +135,11 @@ public class NeuralNetwork {
         	
             for (Neuron nI : inputLayer) {
                 int p = inputLayer.indexOf(nI);
-                float diff = nu * nH.getDelta() * nI.getActivationOutput();
+                float weightDiff = nu * nH.getDelta() * nI.getActivationOutput();
+                float biasDiff = nu * nH.getDelta();
                 //nH.setWeight(i, nH.getWeight(i) - diff);
-                nH.setUpdatedWeight(p, nH.getWeight(p) - diff);
+                nH.setUpdatedWeight(p, nH.getWeight(p) - weightDiff);
+                nH.setBias(nH.getBias() - biasDiff);
             }
         }
     }
