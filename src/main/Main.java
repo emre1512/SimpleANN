@@ -21,11 +21,11 @@ public class Main {
         Neuron input2 = new Neuron(new SigmoidActivation(), 0, 0);
 
         // Hidden layer
-        Neuron hidden1 = new Neuron(new SigmoidActivation(), 2, -1f);
-        Neuron hidden2 = new Neuron(new SigmoidActivation(), 2, -1f);
+        Neuron hidden1 = new Neuron(new SigmoidActivation(), 2, -0.5f);
+        Neuron hidden2 = new Neuron(new SigmoidActivation(), 2, -0.5f);
 
         // Output layer
-        Neuron output1 = new Neuron(new SigmoidActivation(), 2, -1f);
+        Neuron output1 = new Neuron(new SigmoidActivation(), 2, -0.5f);
 		
         nn.addInputNeuron(input1);
         nn.addInputNeuron(input2);
@@ -48,7 +48,7 @@ public class Main {
 
         	iteration++;
         	
-        	nn.resetGlobalError();
+//        	nn.resetGlobalError();
         	
         	for(int i = 0; i < dataset.size(); i++){
                 input1.setActivationOutput(dataset.get(i)[0]);
@@ -65,26 +65,26 @@ public class Main {
                 System.out.println("-------------------------------");
             }
         	
-		} while (!nn.hasLearnt() && iteration < 1);
+		} while (!nn.hasLearnt() && iteration < 3000000);
         
         
-//        // Test
-//        
-//        System.out.println("Training has been completed.");
-//        System.out.println("Total iteration: " + iteration + ", accepted error: " + nn.getGlobalError());
-//        System.out.println("Test cases are in progress...");
-//         
-//        for(int i = 0; i < dataset.size(); i++){
-//                    	
-//        	input1.setNeuronOutput(dataset.get(i)[0]);
-//            input2.setNeuronOutput(dataset.get(i)[1]);
-//            output1.setDesiredOutput(dataset.get(i)[2]);
-//            
-//            nn.test();
-//            
-//            System.out.println(dataset.get(i)[0] + " XOR " + dataset.get(i)[0] + " = " + quantizeResult(nn.getOutput(0).getActivationOutput()));
-//
-//    	}
+        // Test
+        
+        System.out.println("Training has been completed.");
+        System.out.println("Total iteration: " + iteration + ", accepted error: " + nn.getGlobalError());
+        System.out.println("Test cases are in progress...");
+         
+        for(int i = 0; i < dataset.size(); i++){
+                    	
+        	input1.setActivationOutput(dataset.get(i)[0]);
+            input2.setActivationOutput(dataset.get(i)[1]);
+            output1.setDesiredOutput(dataset.get(i)[2]);
+            
+            nn.test();
+            
+            System.out.println(dataset.get(i)[0] + " XOR " + dataset.get(i)[1] + " = " + quantizeResult(nn.getOutput(0).getActivationOutput()));
+
+    	}
                
 	}
 
