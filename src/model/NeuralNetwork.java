@@ -3,6 +3,8 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+import math.IError;
+
 public class NeuralNetwork {
 
 	private List<Neuron> inputLayer;

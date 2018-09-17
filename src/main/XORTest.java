@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ArrayBlockingQueue;
 
-import model.IError;
+import math.IError;
+import math.SigmoidActivation;
+import math.SquaredError;
 import model.NeuralNetwork;
 import model.Neuron;
-import model.SigmoidActivation;
-import model.SquaredError;
 
-public class Main {
+public class XORTest {
 	
 	public static void main(String[] args){
 				

@@ -1,4 +1,4 @@
-package model;
+package math;
 
 public class SigmoidActivation implements IActivation {
 
