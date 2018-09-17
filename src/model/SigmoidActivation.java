@@ -4,7 +4,7 @@ public class SigmoidActivation implements IActivation {
 
 	@Override
 	public float activate(float input) {
-		return (float) (1. / (1. + Math.exp(-input)));
+		return (float) (1f / (1f + Math.exp(-input)));
 	}
 
 	@Override

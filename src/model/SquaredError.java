@@ -4,6 +4,7 @@ public class SquaredError implements IError {
 
 	@Override
 	public float error(float result, float desired) {
+//		System.out.println(Math.pow(result - desired, 2));
 		return (float) Math.pow(result - desired, 2);
 	}
 

@@ -55,6 +55,7 @@ public class NeuralNetwork {
             float totalInput = 0;
             for (Neuron nI : inputLayer) {
                 int i = inputLayer.indexOf(nI);
+//                System.out.println(nH.getWeight(i));
                 totalInput += nI.getActivationOutput() * nH.getWeight(i);
             }
             
@@ -64,7 +65,6 @@ public class NeuralNetwork {
             //nH.activate(totalInput);
             nH.setNeuronOutput(totalInput);
             nH.setActivationOutput(totalInput);
-            
         }
          
         for (Neuron nO : outputLayer) {
@@ -80,19 +80,18 @@ public class NeuralNetwork {
             //nO.activate(totalInput);
             nO.setNeuronOutput(totalInput);
             nO.setActivationOutput(totalInput);
-            
         }
     }
     
     protected void calculateError() {
         //error = 0;
         for (Neuron nO : outputLayer) {
-        	
         	// No need for this line actually
-            nO.error = errorFunction.error(nO.getActivationOutput(), nO.desiredOutput);
-            
+//            nO.error = errorFunction.error(nO.getActivationOutput(), nO.desiredOutput);
+        	nO.error = nO.getActivationOutput() - nO.desiredOutput;
             // Global error
-            globalError += nO.error;
+            globalError += errorFunction.error(nO.getActivationOutput(), nO.desiredOutput);
+//            System.out.println(globalError);
         }
     }
     
@@ -138,6 +137,7 @@ public class NeuralNetwork {
                 float weightDiff = nu * nH.getDelta() * nI.getActivationOutput();
                 float biasDiff = nu * nH.getDelta();
                 //nH.setWeight(i, nH.getWeight(i) - diff);
+                System.out.println(nH.getWeight(p) - weightDiff);
                 nH.setUpdatedWeight(p, nH.getWeight(p) - weightDiff);
                 nH.setBias(nH.getBias() - biasDiff);
             }
@@ -147,12 +147,18 @@ public class NeuralNetwork {
     private void updateWeights(){
     	 for (int i = 0; i < outputLayer.size(); i++){
     		 Neuron n = outputLayer.get(i);
-    		 n.setWeight(i, n.getUpdatedWeight(i));
+    		 
+    		 for(int j = 0; j < n.getWeightCount(); j++){
+        		 n.setWeight(j, n.getUpdatedWeight(j));
+    		 }    	
     	 }
     	 
     	 for (int i = 0; i < hiddenLayer.size(); i++){
     		 Neuron n = hiddenLayer.get(i);
-    		 n.setWeight(i, n.getUpdatedWeight(i));
+    		 
+    		 for(int j = 0; j < n.getWeightCount(); j++){
+        		 n.setWeight(j, n.getUpdatedWeight(j));
+    		 }  		 
     	 }
     }
 	

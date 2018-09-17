@@ -19,20 +19,25 @@ public class Neuron {
     public float derivativeOfError;
     private static final Random random = new Random();
     
-    public Neuron(IActivation activationFunction, int weights) {
-        this.weights = new float[weights];
+    public Neuron(IActivation activationFunction, int weightCount, float bias) {
+        this.weights = new float[weightCount];
+        this.updatedWeights = new float[weightCount];
         this.activationFunction = activationFunction;
         this.delta = 0;
         this.error = 0;
         this.derivativeOfError = 0;
         this.desiredOutput = 0;
+        this.bias = bias;
          
         initializeWeights();
-        initializeBias();
     }
     
     public float getWeight(int index) {
         return weights[index];
+    }
+    
+    public float getWeightCount(){
+    	return weights.length;
     }
     
     public void setWeight(int index, float weight) {
@@ -106,14 +111,17 @@ public class Neuron {
 
 	private void initializeWeights() {    	  
     	for (int i = 0; i < weights.length; i++) {  		
-    		float value = (float)(random.nextInt(100)) / 100.0f;           
+//    		float value = (float)(random.nextInt(100)) / 100.0f;      
+    		float value = (float)(random.nextInt((100) + 1)) / 100.0f;
             this.weights[i] = value;
         }   	
     }
     
-    private void initializeBias() {
-    	float value = (float)(random.nextInt(100)) / 100.0f;        
-        this.bias = value;
-    }
+	
+	
+//    private void initializeBias() {
+//    	float value = (float)(random.nextInt(100)) / 100.0f;        
+//        this.bias = value;
+//    }
 	
 }
