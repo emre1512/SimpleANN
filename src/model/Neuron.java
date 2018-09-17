@@ -2,8 +2,6 @@ package model;
 
 import java.util.Random;
 
-import javax.activation.ActivationDataFlavor;
-
 public class Neuron {
 
 	private float[] weights;

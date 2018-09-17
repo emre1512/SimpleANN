@@ -84,14 +84,16 @@ public class NeuralNetwork {
         
     	for (Neuron nO : outputLayer) {
 
-            nO.error = errorFunction.error(nO.getActivationOutput() - nO.desiredOutput);
-            globalError += nO.error;
-
-//        	nO.error = nO.getActivationOutput() - nO.desiredOutput;
-//            globalError += errorFunction.error(nO.error);
+//            nO.error = errorFunction.error(nO.getActivationOutput() - nO.desiredOutput);
+//            globalError += nO.error;
+    		
+    		// Error is considered as e = ai - yi
+        	nO.error = nO.getActivationOutput() - nO.desiredOutput;
+            globalError += errorFunction.error(nO.error);
 
         }
-        
+    	
+		// Global error is calculated as G = sqrt(sum((ai - yi)^2))
         globalError = (float) Math.sqrt(globalError);
     }
     
