@@ -18,7 +18,11 @@ public class SquaredError implements IError {
 	// Thus, G' = 2 * (ai - yi) for every output neuron itself.
 	@Override
 	public float derivative(float result, float desired) {
+<<<<<<< HEAD
 		return 2 * (result - desired);
+=======
+		return 2 *(result - desired);
+>>>>>>> 94873ebf68a111fd024b3e82c150bbef0ed31d5d
 	}
 	
 }
