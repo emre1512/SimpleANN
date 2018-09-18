@@ -15,10 +15,10 @@ public class SquaredError implements IError {
 
 	// Derivative of global error G = sqrt(sum((ai - yi)^2))
 	// with respect to the individual output neuron
-	// Thus, G' = ai - yi for every output neuron itself.
+	// Thus, G' = 2 * (ai - yi) for every output neuron itself.
 	@Override
 	public float derivative(float result, float desired) {
-		return (result - desired);
+		return 2 * (result - desired);
 	}
 	
 }

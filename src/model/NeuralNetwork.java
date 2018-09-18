@@ -7,6 +7,9 @@ import math.IError;
 
 public class NeuralNetwork {
 
+	private List<Layer> layers;
+	
+	
 	private List<Neuron> inputLayer;
     private List<Neuron> hiddenLayer;
     private List<Neuron> outputLayer;
@@ -14,6 +17,26 @@ public class NeuralNetwork {
     private float globalError;
     private float nu;
     private IError errorFunction;
+    
+    private boolean hasOutputLayer = false;
+    
+    
+    public NeuralNetwork(float nu, float desiredError){
+        this.nu = nu;
+        this.desiredError = desiredError;       
+        
+        this.layers = new ArrayList<>();
+    }
+    
+    public void addLayer(Layer layer){
+    	if(layer.getClass().getSimpleName().equals("OutputLayer")){
+    		hasOutputLayer = true;
+    	}
+    	else if(!hasOutputLayer){
+        	layers.add(layer);
+    	}
+    }
+       
     
     public NeuralNetwork(float desiredError, float nu, IError errorFunction) {
         inputLayer = new ArrayList<>();
@@ -123,7 +146,7 @@ public class NeuralNetwork {
         }
         
         
-        // BP for hidden layer weights
+        // BP for first hidden layer weights
         for (Neuron nH : hiddenLayer) {
             int i = hiddenLayer.indexOf(nH);       		
 
@@ -146,6 +169,9 @@ public class NeuralNetwork {
                 nH.setBias(nH.getBias() - biasDiff);
             }
         }
+        
+        
+        
     }
      
     private void updateWeights(){
